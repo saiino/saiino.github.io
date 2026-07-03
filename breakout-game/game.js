@@ -111,12 +111,26 @@ function collideBricks() {
         ball.y - ball.radius < brick.y + BRICK_HEIGHT
       ) {
         brick.alive = false;
-        ball.dy *= -1;
         score += 10;
         scoreEl.textContent = score;
+
+        const overlapLeft = ball.x + ball.radius - brick.x;
+        const overlapRight = brick.x + BRICK_WIDTH - (ball.x - ball.radius);
+        const overlapTop = ball.y + ball.radius - brick.y;
+        const overlapBottom = brick.y + BRICK_HEIGHT - (ball.y - ball.radius);
+        const minOverlapX = Math.min(overlapLeft, overlapRight);
+        const minOverlapY = Math.min(overlapTop, overlapBottom);
+
+        if (minOverlapX < minOverlapY) {
+          ball.dx *= -1;
+        } else {
+          ball.dy *= -1;
+        }
+
         if (bricks.every((row) => row.every((b) => !b.alive))) {
           winGame();
         }
+        return;
       }
     }
   }
@@ -205,8 +219,8 @@ function update() {
   if (
     ball.y + ball.radius > paddleY &&
     ball.y + ball.radius < paddleY + paddle.height &&
-    ball.x > paddle.x &&
-    ball.x < paddle.x + paddle.width &&
+    ball.x + ball.radius > paddle.x &&
+    ball.x - ball.radius < paddle.x + paddle.width &&
     ball.dy > 0
   ) {
     const hitPos = (ball.x - (paddle.x + paddle.width / 2)) / (paddle.width / 2);
