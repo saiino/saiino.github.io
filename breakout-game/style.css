@@ -1,0 +1,67 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #1f2540, #0b0d1a);
+  font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+  color: #f0f0f5;
+}
+
+.game-wrapper {
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 8px;
+  letter-spacing: 0.1em;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  width: 480px;
+  margin: 0 auto 8px;
+  font-size: 14px;
+  color: #b8bce0;
+}
+
+canvas {
+  background: #10132a;
+  border: 3px solid #4a4fd9;
+  border-radius: 8px;
+  box-shadow: 0 0 24px rgba(74, 79, 217, 0.5);
+  display: block;
+  margin: 0 auto;
+  cursor: none;
+}
+
+.hint {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #8a8fc0;
+}
+
+.hidden {
+  display: none;
+}
+
+#restart {
+  margin-top: 12px;
+  padding: 8px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 20px;
+  background: #4a4fd9;
+  color: white;
+  cursor: pointer;
+}
+
+#restart:hover {
+  background: #6367e6;
+}
