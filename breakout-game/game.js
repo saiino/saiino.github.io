@@ -38,6 +38,7 @@ let score = 0;
 let lives = 3;
 let running = false;
 let gameOver = false;
+let overlayMessage = null;
 let rightPressed = false;
 let leftPressed = false;
 
@@ -63,6 +64,7 @@ function resetGame() {
   score = 0;
   lives = 3;
   gameOver = false;
+  overlayMessage = null;
   createBricks();
   resetBall();
   scoreEl.textContent = score;
@@ -152,7 +154,7 @@ function updateHighScore() {
 function winGame() {
   running = false;
   gameOver = true;
-  drawMessage("クリア！おめでとう 🎉");
+  overlayMessage = "クリア！おめでとう 🎉";
   restartBtn.classList.remove("hidden");
 }
 
@@ -163,7 +165,7 @@ function loseLife() {
     running = false;
     gameOver = true;
     updateHighScore();
-    drawMessage("ゲームオーバー");
+    overlayMessage = "ゲームオーバー";
     restartBtn.classList.remove("hidden");
   } else {
     running = false;
@@ -209,7 +211,9 @@ function draw() {
   ctx.fill();
   ctx.closePath();
 
-  if (!running && !gameOver) {
+  if (gameOver) {
+    drawMessage(overlayMessage);
+  } else if (!running) {
     drawMessage("クリックしてスタート");
   }
 }
