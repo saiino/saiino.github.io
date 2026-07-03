@@ -2,7 +2,12 @@ const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const scoreEl = document.getElementById("score");
 const livesEl = document.getElementById("lives");
+const highscoreEl = document.getElementById("highscore");
 const restartBtn = document.getElementById("restart");
+
+const HIGH_SCORE_KEY = "breakout-high-score";
+let highScore = Number(localStorage.getItem(HIGH_SCORE_KEY)) || 0;
+highscoreEl.textContent = highScore;
 
 const BRICK_ROWS = 5;
 const BRICK_COLS = 8;
@@ -136,6 +141,14 @@ function collideBricks() {
   }
 }
 
+function updateHighScore() {
+  if (score > highScore) {
+    highScore = score;
+    highscoreEl.textContent = highScore;
+    localStorage.setItem(HIGH_SCORE_KEY, highScore);
+  }
+}
+
 function winGame() {
   running = false;
   gameOver = true;
@@ -149,6 +162,7 @@ function loseLife() {
   if (lives <= 0) {
     running = false;
     gameOver = true;
+    updateHighScore();
     drawMessage("ゲームオーバー");
     restartBtn.classList.remove("hidden");
   } else {
